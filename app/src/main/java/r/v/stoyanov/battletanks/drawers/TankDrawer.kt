@@ -7,6 +7,7 @@ import r.v.stoyanov.battletanks.binding
 import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
+import r.v.stoyanov.battletanks.utils.checkViewCanMoveThroughBorder
 
 class TankDrawer(val container: FrameLayout) {
     var currentDirection = Direction.UP
@@ -32,13 +33,12 @@ class TankDrawer(val container: FrameLayout) {
         }
 
         val nextCoordinate = Coordinate(layoutParams.topMargin, layoutParams.leftMargin)
-        if (checkTankCanMoveThroughBorder(
-                nextCoordinate,
-                myTank
+        if (myTank.checkViewCanMoveThroughBorder(
+                nextCoordinate
             ) && checkTankCanMoveThroughMaterial(nextCoordinate, elementsOnContainer)
         ) {
-            binding.container.removeView(binding.myTank)
-            binding.container.addView(binding.myTank)
+            binding.container.removeView(myTank)
+            binding.container.addView(myTank, 0)
         } else {
             (myTank.layoutParams as FrameLayout.LayoutParams).topMargin = currentCoordinate.top
             (myTank.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
@@ -53,13 +53,6 @@ class TankDrawer(val container: FrameLayout) {
             }
         }
         return true
-    }
-
-    private fun checkTankCanMoveThroughBorder(coordinate: Coordinate, myTank: View): Boolean {
-        return coordinate.top >= 0 &&
-                coordinate.top + myTank.height <= binding.container.height &&
-                coordinate.left >= 0 &&
-                coordinate.left + myTank.width <= binding.container.width
     }
 
     private fun getTankCoordinates(topLeftCoordinate: Coordinate): List<Coordinate> {

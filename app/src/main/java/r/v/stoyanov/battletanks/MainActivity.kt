@@ -12,9 +12,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
-import android.widget.FrameLayout
-import androidx.core.view.marginLeft
-import androidx.core.view.marginTop
 import r.v.stoyanov.battletanks.enums.Direction.UP
 import r.v.stoyanov.battletanks.enums.Direction.DOWN
 import r.v.stoyanov.battletanks.enums.Direction.LEFT
@@ -24,9 +21,7 @@ import r.v.stoyanov.battletanks.drawers.BulletDrawer
 import r.v.stoyanov.battletanks.drawers.ElementsDrawer
 import r.v.stoyanov.battletanks.drawers.GridDrawer
 import r.v.stoyanov.battletanks.drawers.TankDrawer
-import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.enums.Material
-import r.v.stoyanov.battletanks.models.Coordinate
 
 const val CELL_SIZE = 50
 
@@ -100,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             KEYCODE_DPAD_DOWN -> tankDrawer.move(binding.myTank, DOWN, elementsDrawer.elementsOnContainer)
             KEYCODE_DPAD_LEFT -> tankDrawer.move(binding.myTank, LEFT, elementsDrawer.elementsOnContainer)
             KEYCODE_DPAD_RIGHT -> tankDrawer.move(binding.myTank, RIGHT, elementsDrawer.elementsOnContainer)
-            KEYCODE_SPACE -> bulletDrawer.drawBullet(binding.myTank, tankDrawer.currentDirection)
+            KEYCODE_SPACE -> bulletDrawer.makeBulletMove(binding.myTank, tankDrawer.currentDirection)
         }
         return super.onKeyDown(keyCode, event)
     }
