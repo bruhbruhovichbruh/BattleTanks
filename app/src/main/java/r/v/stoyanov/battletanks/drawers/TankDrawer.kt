@@ -8,6 +8,7 @@ import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
 import r.v.stoyanov.battletanks.utils.checkViewCanMoveThroughBorder
+import r.v.stoyanov.battletanks.utils.getElementByCoordinates
 
 class TankDrawer(val container: FrameLayout) {
     var currentDirection = Direction.UP

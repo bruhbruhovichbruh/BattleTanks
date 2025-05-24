@@ -3,6 +3,7 @@ package r.v.stoyanov.battletanks.utils
 import android.view.View
 import r.v.stoyanov.battletanks.binding
 import r.v.stoyanov.battletanks.models.Coordinate
+import r.v.stoyanov.battletanks.models.Element
 
 fun View.checkViewCanMoveThroughBorder(coordinate: Coordinate): Boolean {
     return coordinate.top >= 0 &&
@@ -10,3 +11,6 @@ fun View.checkViewCanMoveThroughBorder(coordinate: Coordinate): Boolean {
             coordinate.left >= 0 &&
             coordinate.left + this.width <= binding.container.width
 }
+
+fun getElementByCoordinates(coordinate: Coordinate, elementsOnContainer: List<Element>) =
+    elementsOnContainer.firstOrNull { it.coordinate == coordinate }
