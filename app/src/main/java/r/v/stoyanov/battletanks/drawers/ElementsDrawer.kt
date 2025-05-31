@@ -1,5 +1,6 @@
 package r.v.stoyanov.battletanks.drawers
 
+import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -7,6 +8,7 @@ import r.v.stoyanov.battletanks.CELL_SIZE
 import r.v.stoyanov.battletanks.enums.Material
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
+import r.v.stoyanov.battletanks.utils.drawElement
 import r.v.stoyanov.battletanks.utils.getElementByCoordinates
 
 class ElementsDrawer(val container: FrameLayout) {
@@ -95,24 +97,13 @@ class ElementsDrawer(val container: FrameLayout) {
 
     private fun drawView(coordinate: Coordinate) {
         removeUnwantedInstances()
-        val view = ImageView(container.context)
-        val layoutParams = FrameLayout.LayoutParams(
-            currentMaterial.width * CELL_SIZE,
-            currentMaterial.height * CELL_SIZE
-        )
-        view.setImageResource(currentMaterial.image)
-        layoutParams.topMargin = coordinate.top
-        layoutParams.leftMargin = coordinate.left
         val element = Element(
             material = currentMaterial,
             coordinate = coordinate,
             width = currentMaterial.width,
             height = currentMaterial.height
         )
-        view.id = element.viewId
-        view.layoutParams = layoutParams
-        view.scaleType = ImageView.ScaleType.FIT_XY
-        container.addView(view)
+        element.drawElement(container)
         elementsOnContainer.add(element)
     }
 }
