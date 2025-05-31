@@ -5,7 +5,10 @@ import android.widget.FrameLayout
 import r.v.stoyanov.battletanks.CELL_SIZE
 import r.v.stoyanov.battletanks.binding
 import r.v.stoyanov.battletanks.enums.Direction
+import r.v.stoyanov.battletanks.enums.Material
 import r.v.stoyanov.battletanks.utils.checkViewCanMoveThroughBorder
+import r.v.stoyanov.battletanks.utils.runOnUiThread
+import kotlin.random.Random
 
 class Tank (
     val element: Element,
@@ -25,13 +28,27 @@ class Tank (
         if (view.checkViewCanMoveThroughBorder(nextCoordinate)
             && element.checkTankCanMoveThroughMaterial(nextCoordinate, elementsOnContainer)
         ) {
-            binding.container.removeView(view)
-            binding.container.addView(view, 0)
+            emulateViewMoving(container, view)
             element.coordinate = nextCoordinate
         } else {
             element.coordinate = currentCoordinate
             (view.layoutParams as FrameLayout.LayoutParams).topMargin = currentCoordinate.top
             (view.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
+            changeDirectionForEnemyTank()
+        }
+    }
+
+    private fun changeDirectionForEnemyTank() {
+        if (element.material == Material.ENEMY_TANK) {
+            val randomDirection = Direction.entries[Random.nextInt(Direction.entries.size)]
+            this.direction = randomDirection
+        }
+    }
+
+    private fun emulateViewMoving(container: FrameLayout, view: View) {
+        container.runOnUiThread {
+            binding.container.removeView(view)
+            binding.container.addView(view, 0)
         }
     }
 
