@@ -20,6 +20,7 @@ import r.v.stoyanov.battletanks.enums.Direction.RIGHT
 import r.v.stoyanov.battletanks.databinding.ActivityMainBinding
 import r.v.stoyanov.battletanks.drawers.BulletDrawer
 import r.v.stoyanov.battletanks.drawers.ElementsDrawer
+import r.v.stoyanov.battletanks.drawers.EnemyDrawer
 import r.v.stoyanov.battletanks.drawers.GridDrawer
 import r.v.stoyanov.battletanks.drawers.TankDrawer
 import r.v.stoyanov.battletanks.enums.Material
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity() {
         LevelStorage(this)
     }
 
+    private val enemyDrawer by lazy {
+        EnemyDrawer(binding.container)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,8 +66,6 @@ class MainActivity : AppCompatActivity() {
         binding.editorConcrete.setOnClickListener { elementsDrawer.currentMaterial = Material.CONCRETE }
         binding.editorGrass.setOnClickListener { elementsDrawer.currentMaterial = Material.GRASS }
         binding.editorEagle.setOnClickListener { elementsDrawer.currentMaterial = Material.EAGLE }
-        binding.editorEnemyRespawn.setOnClickListener { elementsDrawer.currentMaterial = Material.ENEMY_TANK_RESPAWN }
-        binding.editorPlayerRespawn.setOnClickListener { elementsDrawer.currentMaterial = Material.PLAYER_TANK_RESPAWN }
         binding.container.setOnTouchListener { _, event ->
             elementsDrawer.onTouchContainer(event.x, event.y)
             return@setOnTouchListener true
@@ -83,13 +86,11 @@ class MainActivity : AppCompatActivity() {
     private fun showSettings() {
         gridDrawer.drawGrid()
         binding.materialsContainer.visibility = VISIBLE
-        elementsDrawer.changeElementsVisibility(true)
     }
 
     private fun hideSettings() {
         gridDrawer.removeGrid()
         binding.materialsContainer.visibility = GONE
-        elementsDrawer.changeElementsVisibility(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
