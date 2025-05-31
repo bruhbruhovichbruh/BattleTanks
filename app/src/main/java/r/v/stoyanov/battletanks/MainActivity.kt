@@ -119,8 +119,8 @@ class MainActivity : AppCompatActivity() {
             elementsDrawer.onTouchContainer(event.x, event.y)
             return@setOnTouchListener true
         }
+
         elementsDrawer.drawElementsList(levelStorage.loadLevel())
-        elementsDrawer.drawElementsList(listOf(playerTank.element, eagle))
         hideSettings()
         countWidthHeight()
     }
