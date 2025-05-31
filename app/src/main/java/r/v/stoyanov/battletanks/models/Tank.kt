@@ -4,15 +4,17 @@ import android.view.View
 import android.widget.FrameLayout
 import r.v.stoyanov.battletanks.CELL_SIZE
 import r.v.stoyanov.battletanks.binding
+import r.v.stoyanov.battletanks.drawers.BulletDrawer
 import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.enums.Material
 import r.v.stoyanov.battletanks.utils.checkViewCanMoveThroughBorder
 import r.v.stoyanov.battletanks.utils.runOnUiThread
 import kotlin.random.Random
 
-class Tank (
+class Tank constructor(
     val element: Element,
-    var direction: Direction
+    var direction: Direction,
+    val bulletDrawer: BulletDrawer
 ) {
     fun move(
         direction: Direction,
