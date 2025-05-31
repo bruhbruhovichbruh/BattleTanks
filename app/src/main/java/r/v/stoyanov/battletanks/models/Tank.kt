@@ -4,20 +4,17 @@ import android.view.View
 import android.widget.FrameLayout
 import r.v.stoyanov.battletanks.CELL_SIZE
 import r.v.stoyanov.battletanks.binding
-import r.v.stoyanov.battletanks.drawers.BulletDrawer
+import r.v.stoyanov.battletanks.drawers.EnemyDrawer
 import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.enums.Material
 import r.v.stoyanov.battletanks.enums.Material.ENEMY_TANK
-import r.v.stoyanov.battletanks.utils.checkIfChanceBiggerThanRandom
-import r.v.stoyanov.battletanks.utils.checkViewCanMoveThroughBorder
-import r.v.stoyanov.battletanks.utils.getTankByCoordinates
-import r.v.stoyanov.battletanks.utils.runOnUiThread
+import r.v.stoyanov.battletanks.utils.*
 import kotlin.random.Random
 
 class Tank constructor(
     val element: Element,
     var direction: Direction,
-    val bulletDrawer: BulletDrawer
+    private val enemyDrawer: EnemyDrawer
 ) {
     fun move(
         direction: Direction,
@@ -25,8 +22,7 @@ class Tank constructor(
         elementsOnContainer: List<Element>
     ) {
         val view = container.findViewById<View>(element.viewId) ?: return
-
-        val currentCoordinate = getTankCurrentCoordinate(view)
+        val currentCoordinate = view.getViewCoordinate()
         this.direction = direction
         view.rotation = direction.rotation
         val nextCoordinate = getTankNextCoordinate(view)
@@ -55,7 +51,13 @@ class Tank constructor(
 
     private fun changeDirectionForEnemyTank() {
         if (element.material == Material.ENEMY_TANK) {
-            val randomDirection = Direction.entries[Random.nextInt(Direction.entries.size)]
+            var randomDirection: Direction = Direction.DOWN
+            when(Random.nextInt(1, 4)) {
+                1 -> randomDirection = Direction.DOWN
+                2 -> randomDirection = Direction.UP
+                3 -> randomDirection = Direction.LEFT
+                4 -> randomDirection = Direction.RIGHT
+            }
             this.direction = randomDirection
         }
     }
@@ -65,13 +67,6 @@ class Tank constructor(
             binding.container.removeView(view)
             binding.container.addView(view, 0)
         }
-    }
-
-    private fun getTankCurrentCoordinate(tank: View): Coordinate {
-        return Coordinate(
-            (tank.layoutParams as FrameLayout.LayoutParams).topMargin,
-            (tank.layoutParams as FrameLayout.LayoutParams).leftMargin
-        )
     }
 
     private fun getTankNextCoordinate(view: View): Coordinate {
@@ -101,7 +96,7 @@ class Tank constructor(
         for (anyCoordinate in getTankCoordinates(coordinate)) {
             var element = getElementByCoordinates(anyCoordinate, elementsOnContainer)
             if (element == null) {
-                element = getTankByCoordinates(anyCoordinate, bulletDrawer.enemyDrawer.tanks)
+                element = getTankByCoordinates(anyCoordinate, enemyDrawer.tanks)
             }
             if (element != null && !element.material.tankCanGoThrough) {
                 if (this == element) {
