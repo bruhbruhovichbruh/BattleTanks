@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import r.v.stoyanov.battletanks.CELL_SIZE
+import r.v.stoyanov.battletanks.GameCore.isPlaying
 import r.v.stoyanov.battletanks.R
 import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.enums.Material
@@ -41,6 +42,9 @@ class BulletDrawer(
     private fun moveAllBullets() {
         Thread(Runnable {
             while(true) {
+                if (!isPlaying()) {
+                    continue
+                }
                 interactWithAllBullets()
                 Thread.sleep(30)
             }
