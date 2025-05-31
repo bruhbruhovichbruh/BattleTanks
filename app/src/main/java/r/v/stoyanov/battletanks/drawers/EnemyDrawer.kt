@@ -59,8 +59,6 @@ class EnemyDrawer(
             Element(
                 material = ENEMY_TANK,
                 coordinate = currentCoordinate,
-                width = ENEMY_TANK.width,
-                height = ENEMY_TANK.height
             ), DOWN
         )
         enemyTank.element.drawElement(container)
