@@ -11,11 +11,12 @@ import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
 import r.v.stoyanov.battletanks.utils.checkViewCanMoveThroughBorder
 import r.v.stoyanov.battletanks.utils.getElementByCoordinates
+import r.v.stoyanov.battletanks.utils.runOnUiThread
 
 private const val BULLET_WIDTH = 15
 private const val BULLET_HEIGHT = 15
 
-class BulletDrawer(val container: FrameLayout) {
+class BulletDrawer(private val container: FrameLayout) {
     private var canBulletGoFurther = true
     private var bulletThread: Thread? = null
 
@@ -48,12 +49,12 @@ class BulletDrawer(val container: FrameLayout) {
                             (bullet.layoutParams as FrameLayout.LayoutParams).leftMargin
                         )
                     )
-                    (container.context as Activity).runOnUiThread {
+                    container.runOnUiThread {
                         container.removeView(bullet)
                         container.addView(bullet)
                     }
                 }
-                (container.context as Activity).runOnUiThread {
+                container.runOnUiThread {
                     container.removeView(bullet)
                 }
             })
@@ -112,9 +113,7 @@ class BulletDrawer(val container: FrameLayout) {
     private fun removeView(element: Element?) {
         val activity = container.context as Activity
         activity.runOnUiThread {
-            if (element != null) {
-                container.removeView(activity.findViewById(element!!.viewId))
-            }
+            container.removeView(activity.findViewById(element!!.viewId))
         }
     }
 
