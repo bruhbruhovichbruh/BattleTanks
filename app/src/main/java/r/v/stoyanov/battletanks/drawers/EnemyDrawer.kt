@@ -3,14 +3,11 @@ package r.v.stoyanov.battletanks.drawers
 import android.widget.FrameLayout
 import r.v.stoyanov.battletanks.CELL_SIZE
 import r.v.stoyanov.battletanks.GameCore
-import r.v.stoyanov.battletanks.SoundManager
-import r.v.stoyanov.battletanks.binding
+import r.v.stoyanov.battletanks.sounds.MainSoundPlayer
 import r.v.stoyanov.battletanks.enums.CELLS_TANKS_SIZE
-import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
 import r.v.stoyanov.battletanks.utils.drawElement
-import r.v.stoyanov.battletanks.enums.Direction.UP
 import r.v.stoyanov.battletanks.enums.Direction.DOWN
 import r.v.stoyanov.battletanks.enums.Material.ENEMY_TANK
 import r.v.stoyanov.battletanks.models.Tank
@@ -21,7 +18,7 @@ private const val MAX_ENEMY_AMOUNT = 20
 class EnemyDrawer(
     private val container: FrameLayout,
     private val elements: MutableList<Element>,
-    private val soundManager: SoundManager,
+    private val mainSoundPlayer: MainSoundPlayer,
     private val gameCore: GameCore
 ) {
     private val respawnList: List<Coordinate>
@@ -87,9 +84,9 @@ class EnemyDrawer(
 
     private fun goThroughAllTanks() {
         if (tanks.isNotEmpty()) {
-            soundManager.tankMove()
+            mainSoundPlayer.tankMove()
         } else {
-            soundManager.tankStop()
+            mainSoundPlayer.tankStop()
         }
         tanks.toList().forEach {
             it.move(it.direction, container, elements)

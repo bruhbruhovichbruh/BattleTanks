@@ -30,6 +30,7 @@ import r.v.stoyanov.battletanks.enums.Material.EAGLE
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
 import r.v.stoyanov.battletanks.models.Tank
+import r.v.stoyanov.battletanks.sounds.MainSoundPlayer
 
 const val CELL_SIZE = 50
 
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val soundManager by lazy {
-        SoundManager(this)
+        MainSoundPlayer(this)
     }
 
     private fun createTank(elementWidth: Int, elementHeight: Int): Tank {
@@ -117,6 +118,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        soundManager.loadSounds()
         supportActionBar?.title = "Menu"
 
         binding.editorClear.setOnClickListener { elementsDrawer.currentMaterial = Material.EMPTY }

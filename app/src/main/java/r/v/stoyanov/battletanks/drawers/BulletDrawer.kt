@@ -7,7 +7,7 @@ import android.widget.ImageView
 import r.v.stoyanov.battletanks.CELL_SIZE
 import r.v.stoyanov.battletanks.GameCore
 import r.v.stoyanov.battletanks.R
-import r.v.stoyanov.battletanks.SoundManager
+import r.v.stoyanov.battletanks.sounds.MainSoundPlayer
 import r.v.stoyanov.battletanks.enums.Direction
 import r.v.stoyanov.battletanks.enums.Material
 import r.v.stoyanov.battletanks.models.Bullet
@@ -23,7 +23,7 @@ class BulletDrawer(
     private val container: FrameLayout,
     private val elements: MutableList<Element>,
     private val enemyDrawer: EnemyDrawer,
-    private val soundManager: SoundManager,
+    private val mainSoundPlayer: MainSoundPlayer,
     private val gameCore: GameCore
 ) {
 
@@ -37,7 +37,7 @@ class BulletDrawer(
         val view = container.findViewById<View>(tank.element.viewId) ?: return
         if (tank.alreadyHasBullet()) return
         allBullets.add(Bullet(createBullet(view, tank.direction), tank.direction, tank))
-        soundManager.bulletShot()
+        mainSoundPlayer.bulletShot()
     }
 
     private fun Tank.alreadyHasBullet(): Boolean =
@@ -165,7 +165,7 @@ class BulletDrawer(
         val tanksElements = enemyDrawer.tanks.map { it.element }
         val tankIndex = tanksElements.indexOf(element)
         if (tankIndex < 0) return
-        soundManager.bulletBurst()
+        mainSoundPlayer.bulletBurst()
         enemyDrawer.removeTank(tankIndex)
     }
 
