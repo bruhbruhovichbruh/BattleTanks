@@ -1,7 +1,7 @@
 package r.v.stoyanov.battletanks.drawers
 
 import android.widget.FrameLayout
-import r.v.stoyanov.battletanks.CELL_SIZE
+import r.v.stoyanov.battletanks.activities.CELL_SIZE
 import r.v.stoyanov.battletanks.GameCore
 import r.v.stoyanov.battletanks.sounds.MainSoundPlayer
 import r.v.stoyanov.battletanks.enums.CELLS_TANKS_SIZE
@@ -114,7 +114,16 @@ class EnemyDrawer(
         moveEnemyTanks()
     }
 
+    private fun isAllTanksDestroyed(): Boolean {
+        return enemyAmount == MAX_ENEMY_AMOUNT && tanks.toList().isEmpty()
+    }
+
+    private fun getPlayerScore() = enemyAmount * 100
+
     fun removeTank(tankIndex: Int) {
         tanks.removeAt(tankIndex)
+        if (isAllTanksDestroyed()) {
+            gameCore.playerWon(getPlayerScore())
+        }
     }
 }

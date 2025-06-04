@@ -4,7 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import r.v.stoyanov.battletanks.CELL_SIZE
+import r.v.stoyanov.battletanks.activities.CELL_SIZE
 import r.v.stoyanov.battletanks.GameCore
 import r.v.stoyanov.battletanks.R
 import r.v.stoyanov.battletanks.sounds.MainSoundPlayer

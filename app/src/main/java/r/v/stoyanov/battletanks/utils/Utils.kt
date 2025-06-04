@@ -4,8 +4,8 @@ import android.app.Activity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
-import r.v.stoyanov.battletanks.CELL_SIZE
-import r.v.stoyanov.battletanks.binding
+import r.v.stoyanov.battletanks.activities.CELL_SIZE
+import r.v.stoyanov.battletanks.activities.binding
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
 import r.v.stoyanov.battletanks.models.Tank

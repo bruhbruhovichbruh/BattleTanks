@@ -3,7 +3,7 @@ package r.v.stoyanov.battletanks.drawers
 import android.graphics.Color
 import android.view.View
 import android.widget.FrameLayout
-import r.v.stoyanov.battletanks.CELL_SIZE
+import r.v.stoyanov.battletanks.activities.CELL_SIZE
 
 class GridDrawer(private val container: FrameLayout?) {
     private val allLines = mutableListOf<View>()

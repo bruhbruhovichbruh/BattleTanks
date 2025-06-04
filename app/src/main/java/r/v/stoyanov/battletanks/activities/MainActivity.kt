@@ -1,5 +1,7 @@
-package r.v.stoyanov.battletanks
+package r.v.stoyanov.battletanks.activities
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -14,6 +16,9 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import androidx.core.content.ContextCompat
+import r.v.stoyanov.battletanks.GameCore
+import r.v.stoyanov.battletanks.LevelStorage
+import r.v.stoyanov.battletanks.R
 import r.v.stoyanov.battletanks.enums.Direction.UP
 import r.v.stoyanov.battletanks.enums.Direction.DOWN
 import r.v.stoyanov.battletanks.enums.Direction.LEFT
@@ -258,5 +263,12 @@ class MainActivity : AppCompatActivity() {
         if (enemyDrawer.tanks.isEmpty()) {
             soundManager.tankStop()
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == SCORE_REQUEST_CODE) {
+            recreate()
+        }
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }

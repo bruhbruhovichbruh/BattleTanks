@@ -2,7 +2,7 @@ package r.v.stoyanov.battletanks.drawers
 
 import android.view.View
 import android.widget.FrameLayout
-import r.v.stoyanov.battletanks.CELL_SIZE
+import r.v.stoyanov.battletanks.activities.CELL_SIZE
 import r.v.stoyanov.battletanks.enums.Material
 import r.v.stoyanov.battletanks.models.Coordinate
 import r.v.stoyanov.battletanks.models.Element
